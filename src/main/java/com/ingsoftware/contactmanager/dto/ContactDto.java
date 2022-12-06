@@ -1,40 +1,19 @@
-package com.ingsoftware.contactmanager.entity;
+package com.ingsoftware.contactmanager.dto;
 
+import javax.validation.constraints.NotBlank;
 
-import javax.persistence.*;
-
-
-import java.util.UUID;
-
-@Entity
-@Table(name = "contacts")
-public class Contact {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class ContactDto {
+    @NotBlank(message = "First name shouldn't be empty.")
     private String firstName;
+    @NotBlank(message = "Last name shouldn't be empty.")
     private String lastName;
+    @NotBlank(message = "Address shouldn't be empty.")
     private String address;
+    @NotBlank(message = "Phone number shouldn't be empty.")
     private String phoneNumber;
-    @Column(unique = true)
+
+    @NotBlank(message = "Empty houldn't be empty.")
     private String email;
-
-    @ManyToOne
-    private ContactType contactType;
-
-    @ManyToOne
-    private User user;
-
-    public Contact() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -75,12 +54,5 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
+
