@@ -1,7 +1,10 @@
 package com.ingsoftware.contactmanager.entity;
 
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Entity
@@ -9,10 +12,12 @@ import java.util.UUID;
 public class ContactType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID ID;
+
     private String description;
-    private String type;
+   @NonNull
+   private String type;
 
 
     public ContactType() {
@@ -22,6 +27,8 @@ public class ContactType {
         this.description = description;
         this.type = type;
     }
+
+
 
     public UUID getID() {
         return ID;
@@ -39,13 +46,13 @@ public class ContactType {
         this.description = description;
     }
 
+    @NonNull
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(@NonNull String type) {
         this.type = type;
     }
-
 }
 
