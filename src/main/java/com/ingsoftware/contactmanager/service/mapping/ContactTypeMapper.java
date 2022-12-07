@@ -1,6 +1,6 @@
 package com.ingsoftware.contactmanager.service.mapping;
 
-import com.ingsoftware.contactmanager.dto.ContactTypeDto;
+import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
 import com.ingsoftware.contactmanager.entity.ContactType;
 import org.springframework.stereotype.Component;
 

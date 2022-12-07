@@ -1,13 +1,16 @@
 package com.ingsoftware.contactmanager.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,15 +20,20 @@ public class User {
     @Column(unique = true)
     private String email;
     @NonNull
+
     private String password;
     @Enumerated(value = EnumType.STRING)
     @NonNull
+
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Contact> contactList = new ArrayList<>();
 
     public User() {
+    }
+
+    public User(String firstName, String lastName, String password, String email, Role role) {
     }
 
     public UUID getId() {

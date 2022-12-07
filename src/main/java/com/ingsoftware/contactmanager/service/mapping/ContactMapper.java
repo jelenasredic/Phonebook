@@ -1,8 +1,12 @@
 package com.ingsoftware.contactmanager.service.mapping;
 
-import com.ingsoftware.contactmanager.dto.ContactDto;
+import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.entity.Contact;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ContactMapper {
@@ -16,4 +20,6 @@ public class ContactMapper {
 
         return contact;
     }
+
+
 }

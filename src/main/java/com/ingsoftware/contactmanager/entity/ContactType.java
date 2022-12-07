@@ -4,6 +4,7 @@ package com.ingsoftware.contactmanager.entity;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Entity
@@ -13,6 +14,7 @@ public class ContactType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID ID;
+
     private String description;
    @NonNull
    private String type;
@@ -25,6 +27,8 @@ public class ContactType {
         this.description = description;
         this.type = type;
     }
+
+
 
     public UUID getID() {
         return ID;

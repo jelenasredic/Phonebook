@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, UUID> {
-    boolean existsByEmailIgnoreCase(String email);
+    boolean existsById(UUID id);
 }

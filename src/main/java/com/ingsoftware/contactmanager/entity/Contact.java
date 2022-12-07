@@ -2,6 +2,7 @@ package com.ingsoftware.contactmanager.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 
 import java.util.UUID;
@@ -12,21 +13,29 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
     private String firstName;
+
     private String lastName;
+
     private String address;
+
     private String phoneNumber;
-    @Column(unique = true)
+
     private String email;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ContactType contactType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Contact() {
     }
+
+    public Contact(String firstName, String lastName, String address, String phoneNumber, String email) {
+    }
+
 
     public UUID getId() {
         return id;
