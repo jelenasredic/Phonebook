@@ -1,9 +1,11 @@
 package com.ingsoftware.contactmanager.service;
 
 
+import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.entity.Contact;
 import com.ingsoftware.contactmanager.repository.ContactRepository;
-import com.ingsoftware.contactmanager.service.exception.ContactDuplicateException;
+import com.ingsoftware.contactmanager.service.exception.DuplicateException;
+import com.ingsoftware.contactmanager.service.mapping.ContactMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,36 +16,47 @@ import java.util.UUID;
 public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
+    @Autowired
+    private ContactMapper contactMapper;
 
+    public void saveContact(ContactDto contactDto) {
+        Contact contact = contactMapper.mapToEntity(contactDto);
+        Contact createContact = contactRepository.save(contact);
 
-    public Contact findById(UUID id) {
-        return contactRepository.findById(id).orElseThrow(() -> new ContactDuplicateException("Contact  not found"));
     }
 
-    public void saveContact(Contact contact) {
-        if (contactRepository.existsById(contact.getId())) {
-            throw new ContactDuplicateException("Contact already exists");
-        }
-        contactRepository.save(contact);
+    public List<ContactDto> getAllContacts() {
+        List<Contact> getAllContacts = contactRepository.findAll();
+        return contactMapper.contactDtoList(getAllContacts);
+
     }
 
-    public void updateContact(Contact newContact, UUID id) {
-        Contact contact = findById(id);
-        contact.setFirstName(newContact.getFirstName());
-        contact.setLastName(newContact.getLastName());
-        contact.setAddress(newContact.getAddress());
-        contact.setPhoneNumber(newContact.getAddress());
-        contact.setEmail(newContact.getEmail());
-        contactRepository.save(contact);
+    public ContactDto findContact(UUID id) {
+        Contact contact = findContactById(id);
+        return contactMapper.convertContactToDto(contact);
     }
-
-    public List<Contact> getAllContact() {
-        return contactRepository.findAll();
-    }
-
 
     public void deleteContact(UUID id) {
-        Contact contact = findById(id);
-        contactRepository.delete(contact);
+        contactRepository.deleteById(id);
+    }
+
+    public void updateContact(ContactDto contactDto, UUID id) {
+        Contact contact = findContactById(id);
+
+        contactRepository.findById(id);
+        contact.setFirstName(contactDto.getFirstName());
+        contact.setLastName(contactDto.getLastName());
+        contact.setAddress(contactDto.getAddress());
+        contact.setPhoneNumber(contactDto.getPhoneNumber());
+        contact.setEmail(contactDto.getEmail());
+        contactRepository.save(contact);
+
+    }
+
+
+    public Contact findContactById(UUID contactId) {
+        return contactRepository.findById(contactId).orElseThrow(() -> new DuplicateException("Contact not found"));
     }
 }
+
+

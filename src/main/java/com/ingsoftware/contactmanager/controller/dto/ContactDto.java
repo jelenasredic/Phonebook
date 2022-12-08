@@ -22,6 +22,9 @@ public class ContactDto {
     @Email(message = "email should be a valid email")
     private String email;
 
+    public ContactDto() {
+    }
+
     public String getFirstName() {
         return firstName;
     }

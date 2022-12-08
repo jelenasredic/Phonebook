@@ -2,6 +2,7 @@ package com.ingsoftware.contactmanager.entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 
@@ -14,14 +15,19 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Size(min = 3, max = 40, message = "First name size must be between 3 and 40")
     private String firstName;
 
+    @Size(min = 3, max = 40, message = "Last name size must be between 3 and 40")
     private String lastName;
 
+    @Size(min = 3, max = 50, message = "Address size must be between 3 and 50")
     private String address;
 
+    @Size(min = 3, max = 50, message = "Phone number size must be between 3 and 50")
     private String phoneNumber;
 
+    @Email(message = "email should be a valid email")
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,9 +37,6 @@ public class Contact {
     private User user;
 
     public Contact() {
-    }
-
-    public Contact(String firstName, String lastName, String address, String phoneNumber, String email) {
     }
 
 

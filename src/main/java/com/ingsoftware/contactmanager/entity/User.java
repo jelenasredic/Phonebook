@@ -1,6 +1,7 @@
 package com.ingsoftware.contactmanager.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 import org.springframework.lang.NonNull;
@@ -15,25 +16,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Size(min = 3, max = 40, message = "First name size must be between 3 and 40")
     private String firstName;
+    @Size(min = 3, max = 40, message = "Last name size must be between 3 and 40")
     private String lastName;
     @Column(unique = true)
+    @Email(message = "Email should be a valid email")
     private String email;
     @NonNull
-
+    @Size(min = 3, max = 100, message = "Password size must be between 3 and 100")
     private String password;
     @Enumerated(value = EnumType.STRING)
     @NonNull
-
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Contact> contactList = new ArrayList<>();
 
     public User() {
-    }
-
-    public User(String firstName, String lastName, String password, String email, Role role) {
     }
 
     public UUID getId() {

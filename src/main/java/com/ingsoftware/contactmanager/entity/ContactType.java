@@ -15,21 +15,14 @@ public class ContactType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID ID;
 
-    private String description;
+    @Size(min = 3, max = 100, message = "Description size must be between 3 and 100")private String description;
    @NonNull
+   @Size(min = 3, max = 40, message = "Type size must be between 3 and 40")
    private String type;
 
 
     public ContactType() {
     }
-
-    public ContactType(String description, String type) {
-        this.description = description;
-        this.type = type;
-    }
-
-
-
     public UUID getID() {
         return ID;
     }
