@@ -1,6 +1,8 @@
 package com.ingsoftware.contactmanager.entity;
 
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -27,6 +29,7 @@ public class Contact {
     @Size(min = 3, max = 50, message = "Phone number size must be between 3 and 50")
     private String phoneNumber;
 
+    @NonNull
     @Email(message = "email should be a valid email")
     private String email;
 
@@ -35,10 +38,6 @@ public class Contact {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
-    public Contact() {
-    }
-
 
     public UUID getId() {
         return id;
@@ -94,5 +93,13 @@ public class Contact {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ContactType getContactType() {
+        return contactType;
+    }
+
+    public void setContactType(ContactType contactType) {
+        this.contactType = contactType;
     }
 }

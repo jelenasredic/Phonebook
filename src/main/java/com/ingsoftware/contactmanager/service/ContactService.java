@@ -21,7 +21,7 @@ public class ContactService {
 
     public void saveContact(ContactDto contactDto) {
         Contact contact = contactMapper.mapToEntity(contactDto);
-        Contact createContact = contactRepository.save(contact);
+       contactRepository.save(contact);
 
     }
 
@@ -42,8 +42,6 @@ public class ContactService {
 
     public void updateContact(ContactDto contactDto, UUID id) {
         Contact contact = findContactById(id);
-
-        contactRepository.findById(id);
         contact.setFirstName(contactDto.getFirstName());
         contact.setLastName(contactDto.getLastName());
         contact.setAddress(contactDto.getAddress());

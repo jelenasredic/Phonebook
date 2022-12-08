@@ -12,8 +12,6 @@ public class ContactTypeDto {
     @NotBlank(message = "Description shouldn't be empty")
     private String description;
 
-    public ContactTypeDto() {
-    }
 
     public String getType() {
         return type;

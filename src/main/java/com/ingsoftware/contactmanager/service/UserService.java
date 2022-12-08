@@ -25,9 +25,8 @@ public class UserService {
         if (userRepository.existsByEmailIgnoreCase(userDto.getEmail())) {
             throw new DuplicateException("User already exists");
         }
-
         User user = userMapper.mapToEntity(userDto);
-        User createUser = userRepository.save(user);
+        userRepository.save(user);
     }
 
     public List<UserDto> getAllUsers() {
@@ -47,7 +46,6 @@ public class UserService {
 
     public void updateUser(UserDto userDto, UUID id) {
         User user = findUserById(id);
-        userRepository.findById(id);
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPassword(userDto.getPassword());

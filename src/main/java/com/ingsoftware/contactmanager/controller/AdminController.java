@@ -29,14 +29,12 @@ public class AdminController {
 
     @DeleteMapping("/contact-type/{id}")
     public ResponseEntity<ContactTypeDto> deleteContactType(@PathVariable UUID id) {
-        ContactTypeDto existingContactType = contactTypeService.findContactType(id);
         contactTypeService.deleteContactType(id);
         return new ResponseEntity<ContactTypeDto>(HttpStatus.OK);
     }
 
     @PutMapping("/contact-type/{id}")
     public ResponseEntity<ContactTypeDto> updateContactType(@Valid @RequestBody ContactTypeDto contactTypeDto, @PathVariable UUID id) {
-        ContactTypeDto existingContactType = contactTypeService.findContactType(id);
         contactTypeService.updateContactType(contactTypeDto, id);
         return new ResponseEntity<ContactTypeDto>(contactTypeDto, HttpStatus.OK);
 
@@ -69,7 +67,6 @@ public class AdminController {
 
     @PutMapping("/users/{id}")
     public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable UUID id) {
-        UserDto existingUser = userService.findUser(id);
         userService.updateUser(userDto, id);
         return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
 

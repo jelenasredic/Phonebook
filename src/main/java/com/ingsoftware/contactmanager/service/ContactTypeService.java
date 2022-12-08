@@ -25,7 +25,7 @@ public class ContactTypeService {
             throw new DuplicateException("Contact type already exists");
         }
         ContactType type = contactTypeMapper.mapToEntity(contactTypeDto);
-        ContactType createContactType = contactTypeRepository.save(type);
+        contactTypeRepository.save(type);
     }
 
     public List<ContactTypeDto> getAllContactTypes() {
@@ -45,7 +45,6 @@ public class ContactTypeService {
 
     public void updateContactType(ContactTypeDto contactTypeDto, UUID id) {
         ContactType contactType = findContactTypeById(id);
-        contactTypeRepository.findById(id);
         contactType.setType(contactTypeDto.getType());
         contactType.setDescription(contactTypeDto.getDescription());
         contactTypeRepository.save(contactType);

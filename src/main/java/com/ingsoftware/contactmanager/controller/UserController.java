@@ -17,23 +17,21 @@ public class UserController {
     private ContactService contactService;
 
     @PostMapping("/contacts")
-    public ResponseEntity<ContactDto> saveContact(@Valid @RequestBody ContactDto contact) {
-        contactService.saveContact(contact);
-        return new ResponseEntity<ContactDto>(contact, HttpStatus.OK);
+    public ResponseEntity<ContactDto> saveContact(@Valid @RequestBody ContactDto contactDto) {
+        contactService.saveContact(contactDto);
+        return new ResponseEntity<ContactDto>(contactDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/contacts/{id}")
     public ResponseEntity<ContactDto> deleteContact(@PathVariable UUID id) {
-        ContactDto existingContact = contactService.findContact(id);
         contactService.deleteContact(id);
         return new ResponseEntity<ContactDto>(HttpStatus.OK);
     }
 
     @PutMapping("/contacts/{id}")
-    public ResponseEntity<ContactDto> updateContact(@Valid @RequestBody ContactDto contact, @PathVariable UUID id) {
-        ContactDto existingContact = contactService.findContact(id);
-        contactService.updateContact(contact, id);
-        return new ResponseEntity<ContactDto>(contact, HttpStatus.OK);
+    public ResponseEntity<ContactDto> updateContact(@Valid @RequestBody ContactDto contactDto, @PathVariable UUID id) {
+        contactService.updateContact(contactDto, id);
+        return new ResponseEntity<ContactDto>(contactDto, HttpStatus.OK);
 
     }
 

@@ -24,10 +24,6 @@ public class UserDto {
     private String email;
 
     private Role role;
-
-    public UserDto() {
-    }
-
     public String getFirstName() {
         return firstName;
     }

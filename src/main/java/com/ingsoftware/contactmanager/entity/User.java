@@ -33,8 +33,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Contact> contactList = new ArrayList<>();
 
-    public User() {
-    }
 
     public UUID getId() {
         return id;
