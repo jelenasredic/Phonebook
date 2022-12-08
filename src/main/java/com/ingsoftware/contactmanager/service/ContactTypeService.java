@@ -1,8 +1,12 @@
 package com.ingsoftware.contactmanager.service;
 
+import com.ingsoftware.contactmanager.controller.dto.ContactDto;
+import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
+import com.ingsoftware.contactmanager.entity.Contact;
 import com.ingsoftware.contactmanager.entity.ContactType;
 import com.ingsoftware.contactmanager.repository.ContactTypeRepository;
-import com.ingsoftware.contactmanager.service.exception.ContactTypeDuplicateException;
+import com.ingsoftware.contactmanager.service.exception.DuplicateException;
+import com.ingsoftware.contactmanager.service.mapping.ContactTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,30 +17,40 @@ import java.util.UUID;
 public class ContactTypeService {
     @Autowired
     private ContactTypeRepository contactTypeRepository;
+    @Autowired
+    private ContactTypeMapper contactTypeMapper;
 
-    public ContactType findById(UUID id) {
-        return contactTypeRepository.findById(id).orElseThrow(() -> new ContactTypeDuplicateException("Contact type not found"));
-    }
-
-    public void saveContactType(ContactType contactType) {
-        if (contactTypeRepository.existsByTypeIgnoreCase(contactType.getType())) {
-            throw new ContactTypeDuplicateException("Contact Type already exists");
+    public void saveContactType(ContactTypeDto contactTypeDto) {
+        if (contactTypeRepository.existsByTypeIgnoreCase(contactTypeDto.getType())) {
+            throw new DuplicateException("Contact type already exists");
         }
-        contactTypeRepository.save(contactType);
+        ContactType type = contactTypeMapper.mapToEntity(contactTypeDto);
+        contactTypeRepository.save(type);
     }
 
+    public List<ContactTypeDto> getAllContactTypes() {
+        List<ContactType> getAllContactTypes = contactTypeRepository.findAll();
+        return contactTypeMapper.contactTypeDtoList(getAllContactTypes);
 
-    public void updateContactType(ContactType newContactType, UUID id){
-        ContactType contactType= findById(id);
-        contactType.setType(newContactType.getType());
-        contactType.setDescription(newContactType.getDescription());
-        contactTypeRepository.save(contactType);
     }
-    public List<ContactType> getAllContactTypes() {
-        return contactTypeRepository.findAll();
+
+    public ContactTypeDto findContactType(UUID id) {
+        ContactType contactType = findContactTypeById(id);
+        return contactTypeMapper.convertContactTypeToDto(contactType);
     }
+
     public void deleteContactType(UUID id) {
-        ContactType contactType= findById(id);
-        contactTypeRepository.delete(contactType);
+        contactTypeRepository.deleteById(id);
+    }
+
+    public void updateContactType(ContactTypeDto contactTypeDto, UUID id) {
+        ContactType contactType = findContactTypeById(id);
+        contactType.setType(contactTypeDto.getType());
+        contactType.setDescription(contactTypeDto.getDescription());
+        contactTypeRepository.save(contactType);
+    }
+
+    public ContactType findContactTypeById(UUID id) {
+        return contactTypeRepository.findById(id).orElseThrow(() -> new DuplicateException("Contact type not found"));
     }
 }

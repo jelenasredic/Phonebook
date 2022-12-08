@@ -1,6 +1,6 @@
 package com.ingsoftware.contactmanager.controller.advice;
 
-import com.ingsoftware.contactmanager.service.exception.ContactTypeDuplicateException;
+import com.ingsoftware.contactmanager.service.exception.DuplicateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,8 +23,8 @@ public class ApplicationExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(ContactTypeDuplicateException.class)
-    public ErrorMessage handleContactTypeException(ContactTypeDuplicateException ex) {
+    @ExceptionHandler(DuplicateException.class)
+    public ErrorMessage handleContactTypeException(DuplicateException ex) {
         return new ErrorMessage(ex.getMessage());
 
 

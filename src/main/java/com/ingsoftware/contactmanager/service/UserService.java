@@ -1,11 +1,12 @@
 package com.ingsoftware.contactmanager.service;
 
+import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
 import com.ingsoftware.contactmanager.controller.dto.UserDto;
 import com.ingsoftware.contactmanager.entity.ContactType;
+import com.ingsoftware.contactmanager.entity.Role;
 import com.ingsoftware.contactmanager.entity.User;
 import com.ingsoftware.contactmanager.repository.UserRepository;
-import com.ingsoftware.contactmanager.service.exception.ContactTypeDuplicateException;
-import com.ingsoftware.contactmanager.service.exception.UserDuplicateException;
+import com.ingsoftware.contactmanager.service.exception.DuplicateException;
 import com.ingsoftware.contactmanager.service.mapping.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,36 +21,40 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User findById(UUID id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserDuplicateException("User not found"));
-    }
-
-
-
-    public void saveUser(User user) {
-        if (userRepository.existsByEmailIgnoreCase(user.getEmail())) {
-            throw new UserDuplicateException("User already exists");
+    public void saveUser(UserDto userDto) {
+        if (userRepository.existsByEmailIgnoreCase(userDto.getEmail())) {
+            throw new DuplicateException("User already exists");
         }
+        User user = userMapper.mapToEntity(userDto);
         userRepository.save(user);
     }
 
-    public void updateUser(User newUser, UUID id) {
-        User user = findById(id);
-        user.setFirstName(newUser.getFirstName());
-        user.setLastName(newUser.getLastName());
-        user.setPassword(newUser.getPassword());
-        user.setEmail(newUser.getEmail());
-        user.setRole(newUser.getRole());
-        userRepository.save(user);
+    public List<UserDto> getAllUsers() {
+        List<User> getAllUsers = userRepository.findAll();
+        return userMapper.userDtoList(getAllUsers);
+
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public UserDto findUser(UUID id) {
+        User user = findUserById(id);
+        return userMapper.convertUserToDto(user);
     }
+
     public void deleteUser(UUID id) {
-        User user = findById(id);
-        userRepository.delete(user);
+        userRepository.deleteById(id);
+    }
+
+    public void updateUser(UserDto userDto, UUID id) {
+        User user = findUserById(id);
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+        user.setRole(Role.USER);
+        userRepository.save(user);
+    }
+
+    public User findUserById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new DuplicateException("User not found"));
     }
 }
-
-

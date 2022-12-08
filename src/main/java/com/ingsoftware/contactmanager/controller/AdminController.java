@@ -2,14 +2,8 @@ package com.ingsoftware.contactmanager.controller;
 
 import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
 import com.ingsoftware.contactmanager.controller.dto.UserDto;
-import com.ingsoftware.contactmanager.entity.ContactType;
-import com.ingsoftware.contactmanager.entity.User;
-import com.ingsoftware.contactmanager.service.ContactService;
 import com.ingsoftware.contactmanager.service.ContactTypeService;
 import com.ingsoftware.contactmanager.service.UserService;
-import com.ingsoftware.contactmanager.service.mapping.ContactTypeMapper;
-import com.ingsoftware.contactmanager.service.mapping.UserMapper;
-import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,64 +20,69 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-@Autowired
-private ContactTypeMapper contactTypeMapper;
-@Autowired
-    private UserMapper userMapper;
 
-    @PostMapping("/contact-type/{id}")
-    public ResponseEntity<ContactTypeDto> saveContactType(@RequestBody @Valid ContactTypeDto dto) {
-        var type=contactTypeMapper.mapToEntity(dto);
-        contactTypeService.saveContactType(type);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    @PostMapping("/contact-type")
+    public ResponseEntity<ContactTypeDto> saveContactType(@Valid @RequestBody ContactTypeDto contactTypeDto) {
+        contactTypeService.saveContactType(contactTypeDto);
+        return new ResponseEntity<ContactTypeDto>(contactTypeDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/contact-type/{id}")
-    public void deleteContactType(@PathVariable UUID id) {
+    public ResponseEntity<ContactTypeDto> deleteContactType(@PathVariable UUID id) {
         contactTypeService.deleteContactType(id);
+        return new ResponseEntity<ContactTypeDto>(HttpStatus.OK);
     }
 
     @PutMapping("/contact-type/{id}")
-    public ResponseEntity<ContactTypeDto> updateContactType(@PathVariable(name = "id") UUID id, @RequestBody ContactTypeDto dto) {
-        var oldContactType = contactTypeService.findById(id);
-        oldContactType.setType(dto.getType());
-        oldContactType.setDescription(dto.getDescription());
-        contactTypeService.saveContactType(oldContactType);
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    public ResponseEntity<ContactTypeDto> updateContactType(@Valid @RequestBody ContactTypeDto contactTypeDto, @PathVariable UUID id) {
+        contactTypeService.updateContactType(contactTypeDto, id);
+        return new ResponseEntity<ContactTypeDto>(contactTypeDto, HttpStatus.OK);
+
     }
+
     @GetMapping("/contact-type/{id}")
-    public List<ContactType> allContactType(){
-    return contactTypeService.getAllContactTypes();
+    public ResponseEntity<ContactTypeDto> findContactType(@PathVariable UUID id) {
+        ContactTypeDto existingContactType = contactTypeService.findContactType(id);
+        return new ResponseEntity<ContactTypeDto>(existingContactType, HttpStatus.OK);
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/contact-type")
+    public ResponseEntity<List<ContactTypeDto>> getAllContactTypes() {
+        List<ContactTypeDto> getAllContactTypes = contactTypeService.getAllContactTypes();
+        return ResponseEntity.status(HttpStatus.OK).body(getAllContactTypes);
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/users")
-    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto dto) {
-        var user = userMapper.mapToEnity(dto);
-        userService.saveUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+    public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
+        userService.saveUser(userDto);
+        return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
     }
 
-    @DeleteMapping("/users")
-    public void deleteUser(@PathVariable UUID id) {
-
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<UserDto> deleteUser(@PathVariable UUID id) {
+        UserDto existingUser = userService.findUser(id);
         userService.deleteUser(id);
+        return new ResponseEntity<UserDto>(HttpStatus.OK);
     }
 
-    @PutMapping("/users")
-    public ResponseEntity<UserDto> updateUser(@PathVariable(name = "id") UUID id, @RequestBody UserDto dto) {
-        var oldUser = userService.findById(id);
-        oldUser.setFirstName(dto.getFirstName());
-        oldUser.setLastName(dto.getLastName());
-        oldUser.setPassword(dto.getPassword());
-        oldUser.setEmail(dto.getEmail());
-        oldUser.setRole(dto.getRole());
-        userService.saveUser(oldUser);
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable UUID id) {
+        userService.updateUser(userDto, id);
+        return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
+
     }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDto> findUser(@PathVariable UUID id) {
+        UserDto existingUser = userService.findUser(id);
+        return new ResponseEntity<UserDto>(existingUser, HttpStatus.OK);
+    }
+
     @GetMapping("/users")
-    public List<User> allUser(){
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> getAllUsers = userService.getAllUsers();
+        return ResponseEntity.status(HttpStatus.OK).body(getAllUsers);
     }
-
 }
+
 

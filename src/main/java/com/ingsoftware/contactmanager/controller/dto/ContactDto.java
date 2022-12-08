@@ -18,9 +18,10 @@ public class ContactDto {
     @NotBlank(message = "Phone number shouldn't be empty.")
     private String phoneNumber;
 
-    @NotBlank(message = "Empty houldn't be empty.")
+    @NotBlank(message = "Email shouldn't be empty.")
     @Email(message = "email should be a valid email")
     private String email;
+
 
     public String getFirstName() {
         return firstName;

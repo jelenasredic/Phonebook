@@ -4,13 +4,13 @@ import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.entity.Contact;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ContactMapper {
-    public Contact mapToEntity (ContactDto contactDto){
+    public Contact mapToEntity(ContactDto contactDto) {
         Contact contact = new Contact();
         contact.setFirstName(contactDto.getFirstName());
         contact.setLastName(contactDto.getLastName());
@@ -21,5 +21,24 @@ public class ContactMapper {
         return contact;
     }
 
+    public ContactDto convertContactToDto(Contact contact) {
+        ContactDto contactDto = new ContactDto();
+        contactDto.setFirstName(contact.getFirstName());
+        contactDto.setLastName(contact.getLastName());
+        contactDto.setAddress(contact.getAddress());
+        contactDto.setPhoneNumber(contact.getPhoneNumber());
+        contactDto.setEmail(contact.getEmail());
+
+        return contactDto;
+    }
+
+    public List<ContactDto> contactDtoList(List<Contact> contactList) {
+        List<ContactDto> contactDtoList = new ArrayList<>();
+        for (var contact : contactList) {
+            var contactDto = convertContactToDto(contact);
+            contactDtoList.add(contactDto);
+        }
+        return contactDtoList;
+    }
 
 }

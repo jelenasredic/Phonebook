@@ -19,21 +19,11 @@ public class UserDto {
     @NotBlank(message = "Password shouldn't be blank.")
     private String password;
 
-    //@Email(message = "Email should be a valid email")
-    @NotBlank (message = "Email shouldn't be blank")
+    @Email(message = "Email should be a valid email")
+    @NotBlank(message = "Email shouldn't be blank")
     private String email;
-    @Size(min = 3, max = 40, message = "Password size must be between 3 and 40")
-    @NotBlank(message = "Role shouldn't be blank.")
+
     private Role role;
-
-    public UserDto(String firstName, String lastName, String password, String email, Role role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
-
     public String getFirstName() {
         return firstName;
     }
