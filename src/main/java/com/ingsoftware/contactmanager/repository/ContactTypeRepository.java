@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface ContactTypeRepository extends JpaRepository<ContactType, UUID> {
     boolean existsByTypeIgnoreCase(String type);
+    ContactType findByTypeIs(String type);
+
 }

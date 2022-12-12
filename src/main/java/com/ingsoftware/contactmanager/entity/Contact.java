@@ -39,6 +39,7 @@ public class Contact {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+
     public UUID getId() {
         return id;
     }

@@ -28,7 +28,8 @@ public class ContactMapper {
         contactDto.setAddress(contact.getAddress());
         contactDto.setPhoneNumber(contact.getPhoneNumber());
         contactDto.setEmail(contact.getEmail());
-
+//        contactDto.setContactType(contact.getContactType().getType());
+        contactDto.setContactTypeId(contact.getContactType().getId());
         return contactDto;
     }
 

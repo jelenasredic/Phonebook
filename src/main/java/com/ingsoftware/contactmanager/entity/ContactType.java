@@ -13,7 +13,7 @@ public class ContactType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID ID;
+    private UUID id;
 
     @Size(min = 3, max = 100, message = "Description size must be between 3 and 100")
     private String description;
@@ -22,12 +22,12 @@ public class ContactType {
    private String type;
 
 
-    public UUID getID() {
-        return ID;
+    public UUID getId() {
+        return id;
     }
 
-    public void setID(UUID ID) {
-        this.ID = ID;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getDescription() {

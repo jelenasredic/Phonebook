@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private ContactTypeService contactTypeService;

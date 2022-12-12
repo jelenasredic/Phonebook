@@ -3,6 +3,7 @@ package com.ingsoftware.contactmanager.controller.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 public class ContactDto {
     @Size(min = 3, max = 40, message = "First name size must be between 3 and 40")
@@ -21,7 +22,24 @@ public class ContactDto {
     @NotBlank(message = "Email shouldn't be empty.")
     @Email(message = "email should be a valid email")
     private String email;
+    private String contactType;
 
+    public String getContactType() {
+        return contactType;
+    }
+
+    public void setContactType(String contactType) {
+        this.contactType = contactType;
+    }
+    private UUID contactTypeId;
+
+    public UUID getContactTypeId() {
+        return contactTypeId;
+    }
+
+    public void setContactTypeId(UUID contactTypeId) {
+        this.contactTypeId = contactTypeId;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -62,5 +80,7 @@ public class ContactDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }
 

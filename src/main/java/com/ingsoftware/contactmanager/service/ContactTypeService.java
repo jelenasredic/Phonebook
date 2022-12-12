@@ -53,4 +53,5 @@ public class ContactTypeService {
     public ContactType findContactTypeById(UUID id) {
         return contactTypeRepository.findById(id).orElseThrow(() -> new DuplicateException("Contact type not found"));
     }
+
 }
