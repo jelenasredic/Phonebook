@@ -1,6 +1,5 @@
 package com.ingsoftware.contactmanager.config;
 
-
 import com.ingsoftware.contactmanager.entity.Role;
 import com.ingsoftware.contactmanager.service.UserRepositoryUserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +29,6 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .antMatchers("/user/**").hasAuthority(Role.USER.name())
                         .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
-                        .antMatchers("/api/**").hasAnyAuthority(Role.ADMIN.name(), Role.USER.name())
                         .anyRequest()
                         .authenticated()
                 )
@@ -44,6 +42,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
 
     }
-
 }
 

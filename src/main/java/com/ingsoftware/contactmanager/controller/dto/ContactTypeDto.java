@@ -30,4 +30,6 @@ public class ContactTypeDto {
     public void setDescription(String description) {
         this.description = description;
     }
+    public interface OnUpdate {
+    }
 }

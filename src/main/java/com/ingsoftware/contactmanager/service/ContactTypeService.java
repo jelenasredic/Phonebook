@@ -1,8 +1,6 @@
 package com.ingsoftware.contactmanager.service;
 
-import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
-import com.ingsoftware.contactmanager.entity.Contact;
 import com.ingsoftware.contactmanager.entity.ContactType;
 import com.ingsoftware.contactmanager.repository.ContactTypeRepository;
 import com.ingsoftware.contactmanager.service.exception.DuplicateException;
@@ -31,7 +29,6 @@ public class ContactTypeService {
     public List<ContactTypeDto> getAllContactTypes() {
         List<ContactType> getAllContactTypes = contactTypeRepository.findAll();
         return contactTypeMapper.contactTypeDtoList(getAllContactTypes);
-
     }
 
     public ContactTypeDto findContactType(UUID id) {
@@ -53,5 +50,4 @@ public class ContactTypeService {
     public ContactType findContactTypeById(UUID id) {
         return contactTypeRepository.findById(id).orElseThrow(() -> new DuplicateException("Contact type not found"));
     }
-
 }

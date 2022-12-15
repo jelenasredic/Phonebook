@@ -1,8 +1,6 @@
 package com.ingsoftware.contactmanager.service.mapping;
 
-import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.controller.dto.UserDto;
-import com.ingsoftware.contactmanager.entity.Contact;
 import com.ingsoftware.contactmanager.entity.Role;
 import com.ingsoftware.contactmanager.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,6 @@ public class UserMapper {
 
         return user;
     }
-
     public UserDto convertUserToDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setFirstName(user.getFirstName());
@@ -37,7 +34,6 @@ public class UserMapper {
         userDto.setRole(Role.USER);
         return userDto;
     }
-
     public List<UserDto> userDtoList(List<User> userList) {
         List<UserDto> userDtoList = new ArrayList<>();
         for (var user : userList) {

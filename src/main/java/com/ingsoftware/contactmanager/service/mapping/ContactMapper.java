@@ -4,7 +4,6 @@ import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.entity.Contact;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,6 @@ public class ContactMapper {
         contactDto.setAddress(contact.getAddress());
         contactDto.setPhoneNumber(contact.getPhoneNumber());
         contactDto.setEmail(contact.getEmail());
-//        contactDto.setContactType(contact.getContactType().getType());
         contactDto.setContactTypeId(contact.getContactType().getId());
         return contactDto;
     }
@@ -41,5 +39,4 @@ public class ContactMapper {
         }
         return contactDtoList;
     }
-
 }

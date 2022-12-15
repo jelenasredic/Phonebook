@@ -1,8 +1,6 @@
 package com.ingsoftware.contactmanager.service;
 
-import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
 import com.ingsoftware.contactmanager.controller.dto.UserDto;
-import com.ingsoftware.contactmanager.entity.ContactType;
 import com.ingsoftware.contactmanager.entity.Role;
 import com.ingsoftware.contactmanager.entity.User;
 import com.ingsoftware.contactmanager.repository.UserRepository;

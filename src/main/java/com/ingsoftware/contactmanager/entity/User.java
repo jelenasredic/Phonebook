@@ -1,11 +1,10 @@
 package com.ingsoftware.contactmanager.entity;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-
-import org.springframework.lang.NonNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +14,7 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NonNull
     private UUID id;
     @Size(min = 3, max = 40, message = "First name size must be between 3 and 40")
     private String firstName;
@@ -34,11 +34,12 @@ public class User {
     private List<Contact> contactList = new ArrayList<>();
 
 
+    @NonNull
     public UUID getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(@NonNull UUID id) {
         this.id = id;
     }
 

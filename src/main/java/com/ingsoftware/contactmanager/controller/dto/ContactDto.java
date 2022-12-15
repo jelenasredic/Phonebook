@@ -1,5 +1,7 @@
 package com.ingsoftware.contactmanager.controller.dto;
 
+
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -22,16 +24,9 @@ public class ContactDto {
     @NotBlank(message = "Email shouldn't be empty.")
     @Email(message = "email should be a valid email")
     private String email;
-    private String contactType;
 
-    public String getContactType() {
-        return contactType;
-    }
 
-    public void setContactType(String contactType) {
-        this.contactType = contactType;
-    }
-    private UUID contactTypeId;
+private UUID contactTypeId;
 
     public UUID getContactTypeId() {
         return contactTypeId;

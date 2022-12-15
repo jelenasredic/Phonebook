@@ -1,8 +1,6 @@
 package com.ingsoftware.contactmanager.service.mapping;
 
-import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
-import com.ingsoftware.contactmanager.entity.Contact;
 import com.ingsoftware.contactmanager.entity.ContactType;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +20,6 @@ public class ContactTypeMapper {
         ContactTypeDto contactTypeDto = new ContactTypeDto();
         contactTypeDto.setType(contactType.getType());
         contactTypeDto.setDescription(contactType.getDescription());
-
-
         return contactTypeDto;
     }
 
