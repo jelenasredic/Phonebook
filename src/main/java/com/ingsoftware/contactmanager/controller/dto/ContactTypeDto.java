@@ -2,8 +2,10 @@ package com.ingsoftware.contactmanager.controller.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.UUID;
 
 public class ContactTypeDto {
+
 
     @Size(min = 3, max = 40, message = "Type size must be between 3 and 40")
     @NotBlank(message = "Type sholudn't be empty")
@@ -27,5 +29,7 @@ public class ContactTypeDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    public interface OnUpdate {
     }
 }

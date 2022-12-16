@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private ContactTypeService contactTypeService;
@@ -37,7 +38,6 @@ public class AdminController {
     public ResponseEntity<ContactTypeDto> updateContactType(@Valid @RequestBody ContactTypeDto contactTypeDto, @PathVariable UUID id) {
         contactTypeService.updateContactType(contactTypeDto, id);
         return new ResponseEntity<ContactTypeDto>(contactTypeDto, HttpStatus.OK);
-
     }
 
     @GetMapping("/contact-type/{id}")
@@ -51,6 +51,7 @@ public class AdminController {
         List<ContactTypeDto> getAllContactTypes = contactTypeService.getAllContactTypes();
         return ResponseEntity.status(HttpStatus.OK).body(getAllContactTypes);
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/users")
     public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
@@ -69,7 +70,6 @@ public class AdminController {
     public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable UUID id) {
         userService.updateUser(userDto, id);
         return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
-
     }
 
     @GetMapping("/users/{id}")

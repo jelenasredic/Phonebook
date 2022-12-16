@@ -26,8 +26,6 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(DuplicateException.class)
     public ErrorMessage handleContactTypeException(DuplicateException ex) {
         return new ErrorMessage(ex.getMessage());
-
-
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
