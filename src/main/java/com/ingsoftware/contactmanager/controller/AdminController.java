@@ -1,21 +1,15 @@
 package com.ingsoftware.contactmanager.controller;
 
-import com.ingsoftware.contactmanager.controller.dto.ContactDto;
 import com.ingsoftware.contactmanager.controller.dto.ContactTypeDto;
 import com.ingsoftware.contactmanager.controller.dto.UserDto;
-import com.ingsoftware.contactmanager.entity.SecurityUser;
 import com.ingsoftware.contactmanager.service.ContactTypeService;
 import com.ingsoftware.contactmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +38,6 @@ public class AdminController {
     public ResponseEntity<ContactTypeDto> updateContactType(@Valid @RequestBody ContactTypeDto contactTypeDto, @PathVariable UUID id) {
         contactTypeService.updateContactType(contactTypeDto, id);
         return new ResponseEntity<ContactTypeDto>(contactTypeDto, HttpStatus.OK);
-
     }
 
     @GetMapping("/contact-type/{id}")
@@ -58,6 +51,7 @@ public class AdminController {
         List<ContactTypeDto> getAllContactTypes = contactTypeService.getAllContactTypes();
         return ResponseEntity.status(HttpStatus.OK).body(getAllContactTypes);
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/users")
     public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
@@ -76,7 +70,6 @@ public class AdminController {
     public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable UUID id) {
         userService.updateUser(userDto, id);
         return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
-
     }
 
     @GetMapping("/users/{id}")

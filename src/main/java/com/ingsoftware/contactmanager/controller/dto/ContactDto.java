@@ -20,13 +20,10 @@ public class ContactDto {
     @Size(min = 3, max = 50, message = "Phone number size must be between 3 and 50")
     @NotBlank(message = "Phone number shouldn't be empty.")
     private String phoneNumber;
-
     @NotBlank(message = "Email shouldn't be empty.")
     @Email(message = "email should be a valid email")
     private String email;
-
-
-private UUID contactTypeId;
+    private UUID contactTypeId;
 
     public UUID getContactTypeId() {
         return contactTypeId;

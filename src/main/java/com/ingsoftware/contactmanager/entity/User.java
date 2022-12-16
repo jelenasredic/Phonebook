@@ -16,6 +16,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NonNull
     private UUID id;
+
+    @NonNull
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(@NonNull UUID id) {
+        this.id = id;
+    }
+
     @Size(min = 3, max = 40, message = "First name size must be between 3 and 40")
     private String firstName;
     @Size(min = 3, max = 40, message = "Last name size must be between 3 and 40")
@@ -32,17 +42,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<Contact> contactList = new ArrayList<>();
-
-
-    @NonNull
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(@NonNull UUID id) {
-        this.id = id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -92,5 +91,6 @@ public class User {
     public void setContactList(List<Contact> contactList) {
         this.contactList = contactList;
     }
+
 }
 

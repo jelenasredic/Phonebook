@@ -1,7 +1,6 @@
 package com.ingsoftware.contactmanager.config;
 
 import com.ingsoftware.contactmanager.entity.Role;
-import com.ingsoftware.contactmanager.service.UserRepositoryUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,9 +15,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 
 public class SecurityConfig {
-    private final UserRepositoryUserDetailsService UserDetailsService;
+    private final com.ingsoftware.contactmanager.service.UserDetailsService UserDetailsService;
 
-    public SecurityConfig(UserRepositoryUserDetailsService UserDetailsService) {
+    public SecurityConfig(com.ingsoftware.contactmanager.service.UserDetailsService UserDetailsService) {
         this.UserDetailsService = UserDetailsService;
     }
 

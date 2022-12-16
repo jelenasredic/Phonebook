@@ -39,4 +39,5 @@ public class ContactMapper {
         }
         return contactDtoList;
     }
+
 }
