@@ -78,5 +78,12 @@ public class ContactService {
 
     }
 
+    public Page<ContactDto> searchUserContacts(User user, String name, Pageable pageable) {
+        return contactRepository
+                .findAllByUserAndFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(user, name, name, pageable)
+                .map(x -> contactMapper.convertContactToDto(x));
+
+    }
+
 }
 
