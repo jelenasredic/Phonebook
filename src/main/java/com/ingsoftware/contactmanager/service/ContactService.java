@@ -85,5 +85,11 @@ public class ContactService {
 
     }
 
+    public void addContacts(List<ContactDto> contactDtoList, UUID userId) {
+        User user = userService.findUserById(userId);
+        var contacts = contactMapper.contactListToDto(contactDtoList);
+        contactRepository.saveAll(contacts);
+
+    }
 }
 

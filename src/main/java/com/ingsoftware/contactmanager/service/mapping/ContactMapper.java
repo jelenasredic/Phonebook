@@ -40,4 +40,13 @@ public class ContactMapper {
         return contactDtoList;
     }
 
+    public List<Contact> contactListToDto(List<ContactDto> contactDtoList) {
+        List<Contact> contactList = new ArrayList<>();
+        for (var contactDto : contactDtoList) {
+            var contact = mapToEntity(contactDto);
+            contactList.add(contact);
+        }
+        return contactList;
+    }
+
 }

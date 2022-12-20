@@ -56,7 +56,7 @@ UserController {
     }
 
     @GetMapping("/contacts")
-    public ResponseEntity<List<ContactDto>> getAllContacts() {
+    public ResponseEntity <List<ContactDto>>getAllContacts() {
         List<ContactDto> getAllContacts = contactService.getAllContacts();
         return ResponseEntity.status(HttpStatus.OK).body(getAllContacts);
     }
@@ -67,6 +67,9 @@ UserController {
         return ResponseEntity.ok(contactService.searchUserContacts(user, name, pageable));
 
     }
-
+    @PostMapping("/bulk")
+    public ResponseEntity<List<ContactDto>>addContacts (@Valid @RequestBody List<ContactDto> contactDtoList, @AuthenticationPrincipal SecurityUser securityUser){
+       contactService.addContacts(contactDtoList, securityUser.getId());
+        return ResponseEntity.ok().build();
+    }
 }
-
