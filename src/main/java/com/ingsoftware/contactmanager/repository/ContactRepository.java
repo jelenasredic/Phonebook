@@ -23,4 +23,5 @@ public interface ContactRepository extends JpaRepository<Contact, UUID> {
   @Query(value = "SELECT * FROM contacts WHERE user_id= :users.id and id= :contacts.id", nativeQuery = true)
   Contact findContactById(@Param("users.id") UUID userId, @Param("contacts.id") UUID contactId);
 
+
 }

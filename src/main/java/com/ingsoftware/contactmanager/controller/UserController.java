@@ -5,7 +5,6 @@ import com.ingsoftware.contactmanager.entity.SecurityUser;
 import com.ingsoftware.contactmanager.service.ContactService;
 import com.ingsoftware.contactmanager.service.ContactTypeService;
 import com.ingsoftware.contactmanager.service.UserService;
-import com.ingsoftware.contactmanager.service.mapping.ContactMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,27 +35,41 @@ UserController {
         contactService.saveContact(contactDto, securityUser.getId());
         return new ResponseEntity<ContactDto>(contactDto, HttpStatus.OK);
     }
+
     @DeleteMapping("/contacts/{contactId}")
     public ResponseEntity<ContactDto> deleteContact(@PathVariable UUID contactId, @AuthenticationPrincipal SecurityUser securityUser) {
         contactService.deleteContact(securityUser.getId(), contactId);
         return ResponseEntity.ok().build();
     }
+
     @PutMapping("/contacts/{contactId}")
     public ResponseEntity<ContactDto> updateContact(@PathVariable(name = "contactId") UUID contactId, @Valid @RequestBody ContactDto contactDto, @AuthenticationPrincipal SecurityUser securityUser) {
         contactService.updateContact(contactDto, contactId, securityUser.getId());
         return new ResponseEntity<ContactDto>(contactDto, HttpStatus.OK);
     }
+
     @GetMapping("/contact")
     public ResponseEntity<?> getAllContacts(@AuthenticationPrincipal SecurityUser securityUser, Pageable pageable) {
         var user = userService.findUserById(securityUser.getId());
         var contacts = contactService.findAllUserContacts(securityUser.getId(), pageable);
         return ResponseEntity.ok(contacts);
     }
+
     @GetMapping("/contacts")
-    public ResponseEntity<List<ContactDto>> getAllContacts() {
+    public ResponseEntity <List<ContactDto>>getAllContacts() {
         List<ContactDto> getAllContacts = contactService.getAllContacts();
         return ResponseEntity.status(HttpStatus.OK).body(getAllContacts);
     }
 
-}
+    @GetMapping("/contact/search")
+    public ResponseEntity<Page<ContactDto>> searchContacts(@AuthenticationPrincipal SecurityUser securityUser, @RequestParam("name") String name, Pageable pageable) {
+        var user = userService.findUserById(securityUser.getId());
+        return ResponseEntity.ok(contactService.searchUserContacts(user, name, pageable));
 
+    }
+    @PostMapping("/bulk")
+    public ResponseEntity<List<ContactDto>>addContacts (@Valid @RequestBody List<ContactDto> contactDtoList, @AuthenticationPrincipal SecurityUser securityUser){
+       contactService.addContacts(contactDtoList, securityUser.getId());
+        return ResponseEntity.ok().build();
+    }
+}
