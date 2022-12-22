@@ -2,7 +2,6 @@ package com.ingsoftware.contactmanager.controller.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.UUID;
 
 public class ContactTypeDto {
 
@@ -30,6 +29,7 @@ public class ContactTypeDto {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public interface OnUpdate {
     }
 }

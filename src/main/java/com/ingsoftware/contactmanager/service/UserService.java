@@ -18,6 +18,9 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private EmailService emailService;
+
 
     public void saveUser(UserDto userDto) {
         if (userRepository.existsByEmailIgnoreCase(userDto.getEmail())) {
@@ -25,6 +28,7 @@ public class UserService {
         }
         User user = userMapper.mapToEntity(userDto);
         userRepository.save(user);
+        emailService.sendConfirmationEmail(user.getEmail());
     }
 
     public List<UserDto> getAllUsers() {
